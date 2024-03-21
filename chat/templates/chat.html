@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Bot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .chat-container {
+            width: 90%;
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 10px 20px 20px 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-messages {
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .message {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 5px;
+            word-wrap: break-word;
+        }
+
+        .user-message {
+            background-color: #e6f2ff;
+            text-align: right;
+            color: blue;
+        }
+
+        .bot-message {
+            background-color: #e6ffe6;
+            text-align: left;
+            color: #008000;
+        }
+
+        .error-message {
+            color: red;
+        }
+
+        .input-container {
+            display: flex;
+            margin-top: 12px;
+        }
+
+        .input-container input[type="text"] {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .input-container button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        /* .display-message {
+            margin-bottom: 1px;
+        } */
+
+        .input-container button:hover {
+            background-color: #45a049;
+        }
+        .chat-bot-title {
+            background-color: #008000;
+            border-radius: 4px;
+        }
+        #display-title{
+            color: white;
+            text-align: center;
+            padding: 5px;
+            margin-bottom: 6%;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-bot-title">
+            <p id="display-title">Chat Bot</p>
+        </div>
+        {% if display_message %}
+            <div class="display-message">{{ display_message }}</div>
+        {% endif %}
+        {% if error_message %}
+            <div class="error-message">{{ error_message }}</div>
+        {% endif %}
+        <div class="chat-messages">
+            {% if question %}
+                <div class="message user-message">{{ question }}</div>
+            {% endif %}
+            {% if bot_response %}
+                <div class="message bot-message">{{ bot_response }}</div>
+            {% endif %}
+        </div>
+        <form id="chat-form" method="post" action="">
+            {% csrf_token %}
+            <div class="input-container">
+                    {% csrf_token %}
+                    <input type="text" name="question" placeholder="Type your message...">
+                    <button id="send-button" type="submit" >Send</button>
+            </div>
+        </form>
+        <script>
+            document.getElementById("chat-form").addEventListener("submit", function(event) {
+                document.getElementById("send-button").innerText = "Sending...";
+                document.getElementById("send-button").disabled = true; // Disable the button to prevent multiple submissions
+            });
+        </script>
+                
+</body>
+</html>
