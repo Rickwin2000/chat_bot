@@ -11,7 +11,7 @@ class ChatView(APIView):
         if question:
             client = Client()
             response = client.chat.completions.create(
-                model="gpt-3.5-turbo",
+                model="gpt-4-turbo",
                 messages=[{"role": "user", "content": f"{question}"}])
             bot_response = response.choices[0].message.content
             return render(request, 'chat.html', {'question': question, 'bot_response': bot_response})
